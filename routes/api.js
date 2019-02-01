@@ -46,7 +46,11 @@ module.exports = function (app) {
     
       .put(function (req, res){
         var project = req.params.project;
-
+        console.log(req.body)
+//         gdb.collection(project).update(
+//           {_id: req.body._id},
+          
+//         )
       })
     
       .delete(function (req, res){
