@@ -16,26 +16,36 @@ const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRIN
 
 module.exports = function (app) {
 
-  app.route('/api/issues/:project')
+  MongoClient.connect(CONNECTION_STRING, (err, db) => {
+    
+    if (err) {
+      console.log("Error In Connecting To the Database")
+    } else {
+      
+      console.log("Successfully Connected to The Database")
+      app.route('/api/issues/:project')
   
-    .get(function (req, res){
-      var project = req.params.project;
-      
-    })
+      .get(function (req, res){
+        var project = req.params.project;
+
+      })
     
-    .post(function (req, res){
-      var project = req.params.project;
-      
-    })
+      .post(function (req, res){
+        var project = req.params.project;
+
+      })
     
-    .put(function (req, res){
-      var project = req.params.project;
-      
-    })
+      .put(function (req, res){
+        var project = req.params.project;
+
+      })
     
-    .delete(function (req, res){
-      var project = req.params.project;
-      
-    });
+      .delete(function (req, res){
+        var project = req.params.project;
+
+      });
+      }
+    
+  })
     
 };
