@@ -32,12 +32,21 @@ module.exports = function (app) {
   
       .get(function (req, res){
         var project = req.params.project;
-        let cursor = gdb.collection(project).find()
-        console.log
-        cursor.each((err, item) => {
-          console.log(item)
+        // let cursor = 
+        gdb.collection(project).find().toArray((err, d) => {
+          res.json(d)
         })
-        res.json({})
+        // console.log(cursor)
+        let response = []
+        // cursor.each((err, item) => {
+        //   if (item !== null) {
+        //     console.log(item)
+        //     response.push(item)
+        //     console.log(response)
+        //   }
+        // })
+        // console.log(response)
+        // res.json(response)
       })
     
       .post(function (req, res){
