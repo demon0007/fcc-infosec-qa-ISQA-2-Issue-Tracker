@@ -46,7 +46,13 @@ module.exports = function (app) {
     
       .put(function (req, res){
         var project = req.params.project;
-        console.log(req.body)
+        let change = {}
+        Object.keys(req.body).forEach(key => {
+          if ( req.body[key] != '' ) {
+            change[key] = req.body[key]
+          }
+        })
+        console.log(change)
 //         gdb.collection(project).update(
 //           {_id: req.body._id},
           
