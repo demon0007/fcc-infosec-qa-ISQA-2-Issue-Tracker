@@ -32,7 +32,10 @@ module.exports = function (app) {
   
       .get(function (req, res){
         var project = req.params.project;
-        console.log(project)
+        gdb.collection(project).find({}, (err, doc) => {
+          if (err) res.json({error: 'Data Retrieval Error'})
+          else console.log(doc)
+        })
         res.json({})
       })
     
@@ -61,8 +64,8 @@ module.exports = function (app) {
           (err, doc) => {
             if (err) res.json({error: 'Data Updation Error', err: err})
             else {
-              console.log(doc.result)
-              res.json(doc.document)
+              // console.log(doc)
+              res.json({success: 'Updation Complete'})
             }
           }
         )
