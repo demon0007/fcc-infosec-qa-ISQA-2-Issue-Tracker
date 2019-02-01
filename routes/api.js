@@ -53,14 +53,16 @@ module.exports = function (app) {
             change[key] = req.body[key]
           }
         })
+        delete change._id
         console.log(change)
         gdb.collection(project).updateOne(
-          {_id: req.body._id},
+          {_id: ObjectId(req.body._id)},
           {$set: change},
           (err, doc) => {
-            if (err) res.json({error: 'Data Updation Error'})
+            if (err) res.json({error: 'Data Updation Error', err: err})
             else {
-              console.log(doc.documents)
+              console.log(doc.result)
+              res.json(doc.document)
             }
           }
         )
