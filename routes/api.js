@@ -32,9 +32,10 @@ module.exports = function (app) {
   
       .get(function (req, res){
         var project = req.params.project;
-        gdb.collection(project).find({}, (err, doc) => {
-          if (err) res.json({error: 'Data Retrieval Error'})
-          else console.log(doc)
+        let cursor = gdb.collection(project).find()
+        console.log
+        cursor.each((err, item) => {
+          console.log(item)
         })
         res.json({})
       })
