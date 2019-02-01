@@ -54,10 +54,9 @@ module.exports = function (app) {
           }
         })
         console.log(change)
-        gdb.collection(project).update(
+        gdb.collection(project).updateOne(
           {_id: req.body._id},
-          change,
-          {upsert:false},
+          {$set: change},
           (err, doc) => {
             if (err) res.json({error: 'Data Updation Error'})
             else {
