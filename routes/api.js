@@ -38,6 +38,7 @@ module.exports = function (app) {
     
       .post(function (req, res){
         var project = req.params.project;
+        req.body.open = true
         gdb.collection(project).insertOne(req.body, (err, doc) => {
           if (err) res.json({error: 'Data Insertion Error'})
           else res.json(doc.ops[0])
@@ -53,10 +54,17 @@ module.exports = function (app) {
           }
         })
         console.log(change)
-//         gdb.collection(project).update(
-//           {_id: req.body._id},
-          
-//         )
+        gdb.collection(project).update(
+          {_id: req.body._id},
+          change,
+          {upsert:false},
+          (err, doc) => {
+            if (err) res.json({error: 'Data Updation Error'})
+            else {
+              console.log(doc.documents)
+            }
+          }
+        )
       })
     
       .delete(function (req, res){
