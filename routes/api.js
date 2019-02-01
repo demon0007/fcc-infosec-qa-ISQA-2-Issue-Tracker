@@ -37,8 +37,8 @@ module.exports = function (app) {
     
       .post(function (req, res){
         var project = req.params.project;
-        console.log(project)
-        res.json({p1: project})
+        
+        res.json(req.body)
       })
     
       .put(function (req, res){
