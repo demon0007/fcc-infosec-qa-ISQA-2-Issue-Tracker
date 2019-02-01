@@ -22,6 +22,7 @@ MongoClient.connect(CONNECTION_STRING, (err, db) => {
       
       console.log("Successfully Connected to The Database")
       gdb = db
+      console.log(db.collections('users'))
       }
   })
 
@@ -37,8 +38,10 @@ module.exports = function (app) {
     
       .post(function (req, res){
         var project = req.params.project;
-        
-        res.json(req.body)
+        gdb.collection(project).insertOne(req.body, (err, doc) => {
+          if (err) res.json({error: 'Data Insertion Error'})
+          else res.json(doc.ops[0])
+        })
       })
     
       .put(function (req, res){
