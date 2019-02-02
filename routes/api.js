@@ -44,6 +44,10 @@ module.exports = function (app) {
       .post(function (req, res){
         var project = req.params.project;
         req.body.open = true
+        if (!(req.body.hasOwnProperty('issue_title') && req.body.hasOwnProperty('issue_text') && req.body.hasOwnProperty('created_by'))) {
+          // console.log()
+          res.json({error: 'Insufficient Data'})
+        }
         gdb.collection(project).insertOne(req.body, (err, doc) => {
           if (err) res.json({error: 'Data Insertion Error'})
           else res.json(doc.ops[0])
