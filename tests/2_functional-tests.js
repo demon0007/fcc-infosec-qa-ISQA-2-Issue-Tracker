@@ -10,7 +10,7 @@ var chaiHttp = require('chai-http');
 var chai = require('chai');
 var assert = chai.assert;
 var server = require('../server');
-let spareId
+let spareId1, spareId2
 
 chai.use(chaiHttp);
 
@@ -35,7 +35,7 @@ suite('Functional Tests', function() {
           assert.equal(res.body.created_by, 'Functional Test - Every field filled in')
           assert.equal(res.body.assigned_to, 'Chai and Mocha')
           assert.equal(res.body.status_text, 'In QA')
-          spareId = res.body._id
+          spareId1 = res.body._id
           //fill me in too!
           
           done();
@@ -61,7 +61,7 @@ suite('Functional Tests', function() {
           // assert.equal(res.body.assigned_to, 'Chai and Mocha')
           // assert.equal(res.body.statue_text, 'In QA')
           //fill me in too!
-          
+          spareId2 = res.body._id
           done();
         });
       });
@@ -84,55 +84,6 @@ suite('Functional Tests', function() {
           // assert.equal(res.body.statue_text, 'In QA')
           //fill me in too!
           
-          done();
-        });
-      });
-      
-    });
-    
-    suite('PUT /api/issues/{project} => text', function() {
-      
-      test('No body', function(done) {
-        chai.request(server)
-        .put('/api/issues/test')
-        .send({
-          _id: spareId,
-        })
-        .end(function(err, res){
-          assert.equal(res.body.error, 'No Body')
-          assert.equal('1', '1')
-          done();
-        });
-      });
-      
-      test('One field to update', function(done) {
-        // chai.request(server)
-        // .put('/api/issues/test')
-        // .send({
-        //   _id: spareId,
-        //   status_text: 'In QAS'
-        // })
-        // .end(function(err, res){
-        //   assert.equal(res.body.success, 'Updation Complete')
-        //   done();
-        // });
-        assert.equal()
-        done()
-      });
-      
-      test('Multiple fields to update', function(done) {
-        chai.request(server)
-        .put('/api/issues/test')
-        .send({
-          _id: spareId,
-          issue_title: 'Title',
-          issue_text: 'text',
-          assigned_to: 'Chai and Mocha',
-          status_text: 'In QA'
-        })
-        .end(function(err, res){
-          assert.equal(res.status, 200);
-          assert.equal(res.body.success, 'Updation Complete')
           done();
         });
       });
