@@ -79,7 +79,9 @@ module.exports = function (app) {
     
       .delete(function (req, res){
         var project = req.params.project;
-        if ( ObjectId.isValid(req.body._id) ) {
+        if (!( req.body.hasOwnProperty('_id'))) {
+          res.json({fail: 'No Id'})
+        } else if (!( ObjectId.isValid(req.body._id) )) {
           res.json({'error': 'Invalid Id'})
         } else {
         gdb.collection(project).deleteOne({_id: ObjectId(req.body._id)},(err, doc) => {

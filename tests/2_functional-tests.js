@@ -10,6 +10,7 @@ var chaiHttp = require('chai-http');
 var chai = require('chai');
 var assert = chai.assert;
 var server = require('../server');
+let spareId
 
 chai.use(chaiHttp);
 
@@ -34,6 +35,7 @@ suite('Functional Tests', function() {
           assert.equal(res.body.created_by, 'Functional Test - Every field filled in')
           assert.equal(res.body.assigned_to, 'Chai and Mocha')
           assert.equal(res.body.status_text, 'In QA')
+          spareId = res.body._id
           //fill me in too!
           
           done();
@@ -136,7 +138,7 @@ suite('Functional Tests', function() {
         chai.request(server)
         .put('/api/issues/test')
         .send({
-          _id: '5c55f7e8f31fb5216a22e6be',
+          _id: spareId,
           issue_title: 'Title',
           issue_text: 'text',
           // created_by: 'Functional Test - Every field filled in',
@@ -215,10 +217,11 @@ suite('Functional Tests', function() {
 //         Error in Dleting Data
         chai.request(server)
         .delete('/api/issues/test')
-        .send({_id: '1'})
+        .send({})
         .end(function(err, res){
+          // console.log(res.body)
           assert.equal(res.status, 200);
-          assert.equal(res.body.fail, 'Issue _id not found');
+          assert.equal(res.body.fail, 'No Id');
           
           done();
         });
@@ -227,8 +230,9 @@ suite('Functional Tests', function() {
       test('Valid _id', function(done) {
         chai.request(server)
         .delete('/api/issues/test')
-        .send({_id: '1'})
+        .send({_id: '5c55f7e8f31fb5216a22e6be'})
         .end(function(err, res){
+          
           assert.equal(res.status, 200);
           assert.equal(res.body.success, 'Issue Deleted');
           
