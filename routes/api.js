@@ -63,7 +63,7 @@ module.exports = function (app) {
           }
         })
         delete change._id
-        console.log(change)
+        // console.log(change)
         gdb.collection(project).updateOne(
           {_id: ObjectId(req.body._id)},
           {$set: change},
