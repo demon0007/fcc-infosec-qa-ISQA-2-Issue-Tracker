@@ -76,8 +76,9 @@ module.exports = function (app) {
       .delete(function (req, res){
         var project = req.params.project;
 
-        gdb.collections(project).deleteOne((err, res) => {
-          if (err) res.json({error: })
+        gdb.collection(project).deleteOne({_id: ObjectId(req.body._id)},(err, doc) => {
+          if (err) res.json({error: 'Error in Dleting Data'})
+          else res.json({success: 'Issue Deleted'})
         })
     });
     
