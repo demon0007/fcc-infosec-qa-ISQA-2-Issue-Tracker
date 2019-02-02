@@ -22,7 +22,7 @@ MongoClient.connect(CONNECTION_STRING, (err, db) => {
       
       console.log("Successfully Connected to The Database")
       gdb = db
-      console.log(db.collections('users'))
+      // console.log(db.collections('users'))
       }
   })
 
@@ -32,12 +32,12 @@ module.exports = function (app) {
   
       .get(function (req, res){
         var project = req.params.project;
-        console.log(req.query)
+        // console.log(req.query)
         let newQuery = {}
         Object.keys(req.query).forEach(ele => {
-          newQuery
+          newQuery[ele] = req.query[ele]
         })
-        gdb.collection(project).find(req.body).toArray((err, d) => {
+        gdb.collection(project).find(newQuery).toArray((err, d) => {
           res.json(d)
         })
       })    
