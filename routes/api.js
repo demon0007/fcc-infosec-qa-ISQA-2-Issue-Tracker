@@ -63,12 +63,17 @@ module.exports = function (app) {
           }
         })
         delete change._id
+        if (Object.keys(change).length == 0) {
+          res.json({e})
+        }
         // console.log(change)
         gdb.collection(project).updateOne(
           {_id: ObjectId(req.body._id)},
           {$set: change},
           (err, doc) => {
-            if (err) res.json({error: 'Data Updation Incomplete'})            
+            if (err) {
+              res.json({error: 'Data Updation Incomplete'})            
+            }
             else {
               // console.log(doc)
               res.json({success: 'Updation Complete'})
