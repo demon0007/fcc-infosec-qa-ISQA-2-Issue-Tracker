@@ -33,7 +33,7 @@ module.exports = function (app) {
       .get(function (req, res){
         var project = req.params.project;
         console.log(req.query)
-        gdb.collection(project).find(req.body).toArray((err, d) => {
+        gdb.collection(project).find(rreq.body.toArray((err, d) => {
           res.json(d)
         })
       })
@@ -76,3 +76,4 @@ module.exports = function (app) {
       });
     
 };
+
