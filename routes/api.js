@@ -33,11 +33,11 @@ module.exports = function (app) {
       .get(function (req, res){
         var project = req.params.project;
         console.log(req.query)
-        gdb.collection(project).find(rreq.body.toArray((err, d) => {
-          res.json(d)
-        })
-      })
-    
+         let  project_db = db.collection(project).find(r.
+        
+        project_dbtoArray((err, d) => {
+           // es.json(d)
+         ))      }))    
       .post(function (req, res){
         var project = req.params.project;
         req.body.open = true
