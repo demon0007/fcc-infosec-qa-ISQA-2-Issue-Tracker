@@ -35,7 +35,7 @@ module.exports = function (app) {
         console.log(req.query)
          let  project_db = db.collection(project).find(r.
         
-        project_dbtoArray((err, d) => {
+        project_dbtoArray(()=> {
            // es.json(d)
          ))      }))    
       .post(function (req, res){
