@@ -64,7 +64,7 @@ module.exports = function (app) {
           {_id: ObjectId(req.body._id)},
           {$set: change},
           (err, doc) => {
-            if (err) res.json({error: 'Data Updation Error', err: err})
+            if (err) res.json({error: 'Data Updation Incomplete'})            
             else {
               // console.log(doc)
               res.json({success: 'Updation Complete'})
@@ -76,7 +76,10 @@ module.exports = function (app) {
       .delete(function (req, res){
         var project = req.params.project;
 
-      });
+        gdb.collections(project).deleteOne((err, res) => {
+          if (err) res.json({error: })
+        })
+    });
     
 };
 
