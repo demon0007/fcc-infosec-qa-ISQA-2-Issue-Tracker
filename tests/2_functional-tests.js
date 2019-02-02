@@ -210,11 +210,28 @@ suite('Functional Tests', function() {
     suite('DELETE /api/issues/{project} => text', function() {
       
       test('No _id', function(done) {
-        
+//         Error in Dleting Data
+        chai.request(server)
+        .delete('/api/issues/test')
+        .send({_id: '1'})
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.equal(res.body.fail, 'Issue _id not found');
+          
+          done();
+        });
       });
       
       test('Valid _id', function(done) {
-        
+        chai.request(server)
+        .delete('/api/issues/test')
+        .send({_id: '1'})
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.equal(res.body.success, 'Issue Deleted');
+          
+          done();
+        });
       });
       
     });

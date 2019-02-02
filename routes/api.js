@@ -75,11 +75,17 @@ module.exports = function (app) {
     
       .delete(function (req, res){
         var project = req.params.project;
-
+        if ( ObjectId.isValid(req.body._id) ) {
+          res.json({'error': 'Invalid Id'})
+        } else {
         gdb.collection(project).deleteOne({_id: ObjectId(req.body._id)},(err, doc) => {
           if (err) res.json({error: 'Error in Dleting Data'})
-          else res.json({success: 'Issue Deleted'})
+          else {
+            if (doc.deletedCount > 0) res.json({fail: 'Issue _id not found'})
+            res.json({success: 'Issue Deleted'})
+          }
         })
+        }
     });
     
 };
